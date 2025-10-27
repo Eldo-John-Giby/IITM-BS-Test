@@ -1,5 +1,4 @@
- name: Daily update by 24f2005903@ds.study.iitm.ac.in
-
+name: Daily Commit Automation
 
 on:
   schedule:
