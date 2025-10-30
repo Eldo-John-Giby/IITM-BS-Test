@@ -1,31 +1,26 @@
-name: Daily Commit Automation
+name: CI
 
 on:
-  schedule:
-    # Runs every day at 09:15 UTC (you can adjust this time)
-    - cron: '15 9 * * *'
-  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  auto-commit:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # ✅ Allow commits & pushes
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 20
 
-      - name: Update log file (by 24f2005903@ds.study.iitm.ac.in)
-        run: |
-          echo "Daily update: $(date -u)" >> daily-log.txt
+      - name: Install dependencies
+        run: npm install
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "24f2005903@ds.study.iitm.ac.in"
-          git add daily-log.txt
-          git commit -m "Automated daily commit: $(date -u)" || echo "No changes to commit"
-          git push origin HEAD:${GITHUB_REF##*/}
+      - name: Run tests
+        run: npm test
