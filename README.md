@@ -1,1 +1,6 @@
-[![CI](https://github.com/Eldo-John-Giby/IITM-BS-Test/actions/workflows/daily-commit.yml/badge.svg)](https://github.com/Eldo-John-Giby/IITM-BS-Test/actions/workflows/daily-commit.yml)
+# Multi-Platform Matrix Build Demo
+
+This repository demonstrates a GitHub Actions matrix build that runs on three operating systems and uploads unique artifacts.
+
+24f2005903@ds.study.iitm.ac.in
+
