@@ -1,0 +1,31 @@
+name: Multi-Platform Matrix Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Matrix Build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: matrix-93cceb3
+        run: echo "Running matrix build on ${{ matrix.os }}"
+
+      - name: Generate build artifact
+        run: |
+          echo "This is the build artifact for ${{ matrix.os }}" > build_output_${{ matrix.os }}.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-93cceb3-${{ matrix.os }}
+          path: build_output_${{ matrix.os }}.txt
